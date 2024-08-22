@@ -10,9 +10,9 @@ function PlaidAuth({publicToken}) {
 
   useEffect(() => {
     async function fetchData() {
-      let accessToken = await axios.post("/exchange_public_token", {public_token: publicToken})
+      let accessToken = await axios.post("/api/exchange_public_token", {public_token: publicToken})
       console.log("accessToken", accessToken.data);
-      const auth = await axios.post("/auth", {access_token: accessToken.data.accessToken})
+      const auth = await axios.post("/api/auth", {access_token: accessToken.data.accessToken})
       console.log("auth data", auth.data)
       setAccount(auth.data.numbers.ach[0])
     }
@@ -33,7 +33,7 @@ function App() {
 
   useEffect(()=>{
     async function fetch() {
-      const response = await axios.post("/create_link_token");
+      const response = await axios.post("/api/create_link_token");
       console.log("response ", response.data);
       setLinkToken(response.data.link_token)
     }
