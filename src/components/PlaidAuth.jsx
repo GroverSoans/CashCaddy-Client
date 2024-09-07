@@ -1,41 +1,39 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import AccountInfo from './AccountInfo';
 
 function PlaidAuth({ publicToken }) {
-  // State to store the account information (account number and routing number)
   const [account, setAccount] = useState();
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    // Function to fetch access token and account information from the server
     async function fetchData() {
       try {
-        // Exchange the public token for an access token by calling the backend
-        let accessToken = await axios.post('/api/exchange_public_token', { public_token: publicToken });
-        console.log('accessToken', accessToken.data);
+        // Exchange public token for access token
+        const accessTokenResponse = await axios.post('/api/exchange_public_token', { public_token: publicToken });
+        const accessToken = accessTokenResponse.data.accessToken;
 
-        // Use the access token to get authenticated account information
-        const auth = await axios.post('/api/auth', { access_token: accessToken.data.accessToken });
-        console.log('auth data', auth.data);
+        // Fetch account details
+        const authResponse = await axios.post('/api/auth', { access_token: accessToken });
+        const accountResponse = await axios.post('/api/accounts', { access_token: accessToken });
 
-        // Extract and store the account information (ACH data)
-        setAccount(auth.data.numbers.ach[0]);
+        console.log('auth data', authResponse.data);
+        console.log('accounts data', accountResponse.data);
+        setAccount(authResponse.data.numbers.ach[0]);
+        setAccounts(accountResponse.data.accounts);
       } catch (error) {
-        // Handle errors in the API call process
         console.error('Error fetching data', error);
       }
     }
-    // Call the function when the component mounts
     fetchData();
-  }, [publicToken]); // The effect runs when `publicToken` changes
+  }, [publicToken]);
 
-  // If account data is available, render account details (account number and routing number)
-  return account && (
+  return (
     <div>
-      <p>Account number: {account.account}</p>
-      <p>Routing number: {account.routing}</p>
+      <h2>Account Information</h2>
+      <AccountInfo accounts={accounts} />
     </div>
   );
 }
 
 export default PlaidAuth;
-
