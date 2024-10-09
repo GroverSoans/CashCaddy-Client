@@ -11,6 +11,7 @@ function AccountInfo({ accounts }) {
             <p>Subtype: {account.subtype}</p>
             <p>Available Balance: {account.balances.available}</p>
             <p>Current Balance: {account.balances.current}</p>
+            <p>Limit: {account.balances.limit}</p>
           </li>
         ))}
       </ul>

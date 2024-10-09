@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Plaid from "../components/Plaid"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Home = () => {
       }
       try {
         const { data } = await axios.post(
-          "http://localhost:8000", 
+          "http://localhost:8000/", 
           {}, 
           { withCredentials: true }
         );
@@ -49,13 +50,13 @@ const Home = () => {
 
   return (
     <>
-      <div className="home_page">
+      <div className="">
         <h4>
           Welcome <span>{firstName}</span>
         </h4>
+        <Plaid></Plaid>
         <button onClick={handleLogout}>LOGOUT</button>
       </div>
-      <ToastContainer />
     </>
   );
 };

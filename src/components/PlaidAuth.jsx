@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AccountInfo from './AccountInfo';
+import AchInfo from './AchInfo';
 
 function PlaidAuth({ publicToken }) {
   const [account, setAccount] = useState();
@@ -32,6 +33,7 @@ function PlaidAuth({ publicToken }) {
     <div>
       <h2>Account Information</h2>
       <AccountInfo accounts={accounts} />
+      <AchInfo account = {account} />
     </div>
   );
 }
