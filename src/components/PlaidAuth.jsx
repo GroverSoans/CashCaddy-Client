@@ -11,12 +11,12 @@ function PlaidAuth({ publicToken }) {
     async function fetchData() {
       try {
         // Exchange public token for access token
-        const accessTokenResponse = await axios.post('/api/exchange_public_token', { public_token: publicToken });
+        const accessTokenResponse = await axios.post('/plaid/exchange_public_token', { public_token: publicToken });
         const accessToken = accessTokenResponse.data.accessToken;
 
         // Fetch account details
-        const authResponse = await axios.post('/api/auth', { access_token: accessToken });
-        const accountResponse = await axios.post('/api/accounts', { access_token: accessToken });
+        const authResponse = await axios.post('/plaid/auth', { access_token: accessToken });
+        const accountResponse = await axios.post('/plaid/accounts', { access_token: accessToken });
 
         console.log('auth data', authResponse.data);
         console.log('accounts data', accountResponse.data);

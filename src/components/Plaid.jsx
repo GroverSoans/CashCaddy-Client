@@ -17,7 +17,7 @@ function Plaid() {
     // Fetch the Link Token from the backend by calling the /api/create_link_token endpoint
     async function fetch() {
       try {
-        const response = await axios.post('/api/create_link_token');
+        const response = await axios.post('/plaid/create_link_token');
         console.log('response ', response.data);
         // Store the link token in state
         setLinkToken(response.data.link_token);

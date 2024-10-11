@@ -22,11 +22,11 @@ const SignupForm = () => {
     }
 
     const handleError = (err) =>
-        toast.err(err, {
+        toast.error(err, {
             position: "bottom-left"
         })
     const handleSuccess = (msg) =>
-        toast.err(msg, {
+        toast.success(msg, {
             position: "bottom-right"
         })
     
