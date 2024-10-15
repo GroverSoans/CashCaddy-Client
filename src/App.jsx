@@ -6,6 +6,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import DashboardPage from "./pages/DashboardPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -36,7 +37,7 @@ const RedirectAuthenticatedUser = ({ children }) => {
 
 
 function App() {
-  const {isCheckingAuth, checkAuth, isAuthenticated, user} = useAuthStore()
+  const {checkAuth, isAuthenticated, user} = useAuthStore()
 
   useEffect(() =>{
     checkAuth()
@@ -63,9 +64,15 @@ function App() {
         </RedirectAuthenticatedUser>} />
 
         <Route path='/verify-email' element = {<EmailVerificationPage/>}/>
+
         <Route path='/forgot-password' element = {<RedirectAuthenticatedUser>
           <ForgotPasswordPage/>
         </RedirectAuthenticatedUser>}/>
+
+        <Route path='/forgot-password' element = {<RedirectAuthenticatedUser>
+          <ResetPasswordPage/>
+        </RedirectAuthenticatedUser>}/>
+
         </Routes>
   
     </div>
