@@ -1,10 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-import Home from './pages/Home';
+import { Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignupPage'
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
+import DashboardPage from "./pages/DashboardPage";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -49,8 +49,10 @@ function App() {
 
 
       <Routes>
-        <Route path='/' element = {<Home/>} />
-        
+        <Route path='/' element = {<ProtectedRoute>
+          <DashboardPage/>
+        </ProtectedRoute>} />
+
         <Route path='/login' element = {<RedirectAuthenticatedUser>
           <LoginPage/>
         </RedirectAuthenticatedUser>} />
@@ -60,7 +62,7 @@ function App() {
         </RedirectAuthenticatedUser>} />
 
         <Route path='/verify-email' element = {<EmailVerificationPage/>}/>
-      </Routes>
+        </Routes>
     </div>
 
   );
